@@ -2,8 +2,8 @@
 
 import axios from "axios";
 
-// const BASE_URL = 'https://coral-app-2q2fn.ondigitalocean.app';
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "https://coral-app-2q2fn.ondigitalocean.app";
+// const BASE_URL = "http://localhost:3001";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
