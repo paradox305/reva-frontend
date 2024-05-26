@@ -6,12 +6,7 @@ import React, { useState, useEffect } from "react";
 const MenuPage = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [newMenuItem, setNewMenuItem] = useState({
-    itemName: "",
-    category: "",
-    price: 0,
-    quantity: 0,
-  });
+  const [CreateMenu, setCreateMenu] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isCreatePopupOpen, setIsCreatePopupOpen] = useState(false);
 
@@ -65,18 +60,14 @@ const MenuPage = () => {
   const handleAddMenu = async () => {
     try {
       // Make API call to add menu item
-      const response = await axiosInstance.post("/admin/menu", newMenuItem);
-      setNewMenuItem({
-        itemName: "",
-        category: "",
-        price: 0,
-        quantity: 0,
-      });
+      const response = await axiosInstance.post("/admin/menu", CreateMenu);
+
       fetchMenuItems();
       // Clear new menu item state
 
       // Close the popup
       setIsCreatePopupOpen(false);
+      setCreateMenu(null);
     } catch (error) {
       console.error("Error adding menu item:", error);
       setError("Error adding menu item. Please try again.");
@@ -102,9 +93,8 @@ const MenuPage = () => {
               Item Name:
               <input
                 type="text"
-                value={newMenuItem.itemName}
                 onChange={(e) =>
-                  setNewMenuItem({ ...newMenuItem, itemName: e.target.value })
+                  setCreateMenu({ ...CreateMenu, itemName: e.target.value })
                 }
                 className="w-full p-2 border border-gray-300 rounded"
               />
@@ -113,11 +103,13 @@ const MenuPage = () => {
               Category:
               <select
                 className="w-full p-2 border border-gray-300 rounded"
-                value={newMenuItem.category}
                 onChange={(e) =>
-                  setNewMenuItem({ ...newMenuItem, category: e.target.value })
+                  setCreateMenu({ ...CreateMenu, category: e.target.value })
                 }
               >
+                <option value="" selected>
+                  Choose from list
+                </option>
                 <option value="Dish">Dish</option>
                 <option value="Snacks">Snacks</option>
                 <option value="Alcohol">Alcohol</option>
@@ -129,10 +121,9 @@ const MenuPage = () => {
               Quantity:
               <input
                 type="number"
-                value={newMenuItem.quantity}
                 onChange={(e) =>
-                  setNewMenuItem({
-                    ...newMenuItem,
+                  setCreateMenu({
+                    ...CreateMenu,
                     quantity: Number(e.target.value),
                   })
                 }
@@ -143,10 +134,9 @@ const MenuPage = () => {
               Price:
               <input
                 type="number"
-                value={newMenuItem.price}
                 onChange={(e) =>
-                  setNewMenuItem({
-                    ...newMenuItem,
+                  setCreateMenu({
+                    ...CreateMenu,
                     price: Number(e.target.value),
                   })
                 }
