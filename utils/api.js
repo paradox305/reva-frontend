@@ -1,19 +1,18 @@
 // utils/api.js
 
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL = 'https://coral-app-2q2fn.ondigitalocean.app';
-
+// const BASE_URL = 'https://coral-app-2q2fn.ondigitalocean.app';
+const BASE_URL = "http://localhost:3001";
 
 const axiosInstance = axios.create({
-  baseURL: 'https://coral-app-2q2fn.ondigitalocean.app',
+  baseURL: BASE_URL,
 });
-
 
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -30,12 +29,12 @@ export const signIn = async (username, password) => {
   try {
     const response = await axios.post(`${BASE_URL}/auth/signin`, {
       username,
-      password
+      password,
     });
     return response.data;
   } catch (error) {
     // Handle error
-    console.error('Error signing in:', error);
+    console.error("Error signing in:", error);
     throw error;
   }
 };
