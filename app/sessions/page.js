@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import axiosInstance from "@/utils/api"; // Adjust the import path to your api utility
 import OrdersPage from "@/components/OrdersPage";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const SessionsPage = () => {
@@ -12,7 +13,8 @@ const SessionsPage = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedTableId, setSelectedTableId] = useState(null);
-
+  
+  const router = useRouter();
   useEffect(() => {
     // Fetch tables data from the API
     const fetchTables = async () => {
@@ -33,7 +35,7 @@ const SessionsPage = () => {
   // Function to handle table click
   const handleTableClick = (tableId) => {
     console.log(tableId);
-    setSelectedTableId(tableId);
+    router.push(`/sessions/orders/${tableId}`);
   };
 
   return (
