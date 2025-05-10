@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { MenuItem, TableOrder } from '../types/table';
+import { API_ENDPOINTS } from '../config/api';
 
-const API_URL = 'http://localhost:3001/orders';
+const API_URL = API_ENDPOINTS.ORDERS;
 
 export type OrderType = 'DINE_IN' | 'TAKEAWAY' | 'ROOM_SERVICE';
 export type OrderStatus = 'PLACED' | 'IN_KITCHEN' | 'SERVED' | 'BILLED' | 'COMPLETED' | 'CANCELLED';

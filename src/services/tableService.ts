@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { Table, CreateTableDto } from '../types/table';
+import { API_ENDPOINTS } from '../config/api';
 
-const API_URL = 'http://localhost:3001/tables';
+const API_URL = API_ENDPOINTS.TABLES;
 
 export const tableService = {
   async createTable(data: CreateTableDto): Promise<Table> {

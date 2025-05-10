@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { MenuItem, CreateMenuItemDto } from '../types/menu';
+import { API_ENDPOINTS } from '../config/api';
 
-const API_URL = 'http://localhost:3001/menu';
+const API_URL = API_ENDPOINTS.MENU;
 
 export interface GetMenuItemsParams {
   category?: string;
