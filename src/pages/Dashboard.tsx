@@ -48,9 +48,14 @@ const Dashboard: React.FC = () => {
       setTables(tablesData);
       setSalesData(salesData);
       setError(null);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error details:', err);
-      setError('Failed to load dashboard data');
+      if (err.message.includes('ERR_CONNECTION_REFUSED')) {
+        setError('Cannot connect to the analytics service. Please ensure the backend server is running.');
+      } else {
+        setError('Failed to load dashboard data');
+      }
+      setSalesData(null);
     } finally {
       setLoading(false);
     }
