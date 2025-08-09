@@ -140,7 +140,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
         ...prev,
         [menuItem.id]: 0
       }));
-      onOrderUpdate();
+      // Don't call onOrderUpdate here as it causes loading state that looks like page reload
     } catch (err) {
       setError('Failed to add item to order');
       console.error(err);
@@ -152,7 +152,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
       if (currentOrder) {
         const updatedOrder = await orderService.removeItemFromOrder(currentOrder.id, menuItemId);
         setCurrentOrder(updatedOrder);
-        onOrderUpdate();
+        // Don't call onOrderUpdate here as it causes loading state that looks like page reload
       }
     } catch (err) {
       setError('Failed to remove item from order');
@@ -168,7 +168,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
         } else {
           const updatedOrder = await orderService.updateItemQuantity(currentOrder.id, menuItemId, quantity);
           setCurrentOrder(updatedOrder);
-          onOrderUpdate();
+          // Don't call onOrderUpdate here as it causes loading state that looks like page reload
         }
       }
     } catch (err) {
@@ -275,6 +275,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
       render: (value: string) => (
         <div className="flex items-center space-x-2">
           <button
+            type="button"
             onClick={() => handleQuantityChange(value, getItemQuantity(value) - 1)}
             className="bg-gray-200 px-2 rounded hover:bg-gray-300"
           >
@@ -288,6 +289,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
             className="w-16 text-center border rounded"
           />
           <button
+            type="button"
             onClick={() => handleQuantityChange(value, getItemQuantity(value) + 1)}
             className="bg-gray-200 px-2 rounded hover:bg-gray-300"
           >
@@ -310,7 +312,12 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
       accessor: 'id',
       render: (value: string, row: MenuItem) => (
         <button
-          onClick={() => handleAddItem(row)}
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleAddItem(row);
+          }}
           className="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600"
         >
           Add
@@ -331,6 +338,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
       render: (value: number, row: OrderItem) => (
         <div className="flex items-center space-x-2">
           <button
+            type="button"
             onClick={() => handleUpdateQuantity(row.menuItemId, value - 1)}
             className="bg-gray-200 px-2 rounded"
           >
@@ -338,6 +346,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
           </button>
           <span>{value}</span>
           <button
+            type="button"
             onClick={() => handleUpdateQuantity(row.menuItemId, value + 1)}
             className="bg-gray-200 px-2 rounded"
           >
@@ -361,6 +370,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
       accessor: 'menuItemId',
       render: (value: string) => (
         <button
+          type="button"
           onClick={() => handleRemoveItem(value)}
           className="text-red-500 hover:text-red-700"
         >
@@ -374,10 +384,11 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg w-full max-w-6xl p-6 max-h-[90vh] overflow-y-auto">
+      <form onSubmit={(e) => e.preventDefault()} className="bg-white rounded-lg w-full max-w-6xl p-6 max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Table {table.number}</h2>
           <button
+            type="button"
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700"
           >
@@ -465,6 +476,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
                     <div className="flex items-center space-x-3 ml-4">
                       <div className="flex items-center space-x-2">
                         <button
+                          type="button"
                           onClick={() => handleUpdateQuantity(item.menuItemId, item.quantity - 1)}
                           className="bg-gray-200 px-2 rounded hover:bg-gray-300"
                         >
@@ -472,6 +484,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
                         </button>
                         <span className="w-8 text-center">{item.quantity}</span>
                         <button
+                          type="button"
                           onClick={() => handleUpdateQuantity(item.menuItemId, item.quantity + 1)}
                           className="bg-gray-200 px-2 rounded hover:bg-gray-300"
                         >
@@ -479,6 +492,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
                         </button>
                       </div>
                       <button
+                        type="button"
                         onClick={() => handleRemoveItem(item.menuItemId)}
                         className="text-red-500 hover:text-red-700 p-1"
                         title="Remove item"
@@ -506,6 +520,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
                     <span>₹{(currentOrder.total || 0).toFixed(2)}</span>
                   </div>
                   <button
+                    type="button"
                     onClick={handleSettleBill}
                     className="w-full mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-colors"
                   >
@@ -529,7 +544,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
             )}
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
