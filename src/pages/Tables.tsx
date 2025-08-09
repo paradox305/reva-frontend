@@ -57,8 +57,8 @@ const Tables: React.FC = () => {
   );
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="flex justify-between items-center mb-8">
+    <div className="container mx-auto p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Tables</h1>
         <button
           onClick={() => setIsAddTableModalOpen(true)}

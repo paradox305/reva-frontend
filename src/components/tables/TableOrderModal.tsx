@@ -384,7 +384,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <form onSubmit={(e) => e.preventDefault()} className="bg-white rounded-lg w-full max-w-6xl p-6 max-h-[90vh] overflow-y-auto">
+      <form onSubmit={(e) => e.preventDefault()} className="bg-white rounded-lg w-full max-w-6xl p-6 max-h-[90vh] overflow-y-auto mx-4">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Table {table.number}</h2>
           <button
@@ -402,7 +402,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
           </div>
         )}
 
-        <div className="flex gap-6">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Left side - Menu Search */}
           <div className="flex-1">
             <div className="mb-6 p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
@@ -411,7 +411,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
                   <label htmlFor="search" className="text-sm font-medium text-gray-700">
                     Search Menu Items
                   </label>
-                  <div className="flex space-x-4">
+                  <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
                     <div className="flex-1 relative">
                       <input
                         id="search"
@@ -427,7 +427,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
                         </div>
                       )}
                     </div>
-                    <div className="w-64">
+                    <div className="w-full sm:w-64">
                       <select
                         value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}
@@ -460,7 +460,7 @@ const TableOrderModal: React.FC<TableOrderModalProps> = ({ table, isOpen, onClos
           </div>
 
           {/* Right side - Current Order */}
-          <div className="w-96 border-l pl-6">
+          <div className="w-full lg:w-96 border-t lg:border-t-0 lg:border-l pt-6 lg:pt-0 lg:pl-6">
             <h3 className="text-xl font-semibold mb-4">Current Order</h3>
             {currentOrder ? (
               <div className="space-y-4">

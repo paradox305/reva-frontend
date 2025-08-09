@@ -105,7 +105,7 @@ const Dashboard: React.FC = () => {
           id="date"
           value={selectedDate}
           onChange={(e) => setSelectedDate(e.target.value)}
-          className="mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          className="mt-1 block w-full sm:w-64 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
         />
       </div>
 
@@ -135,7 +135,7 @@ const Dashboard: React.FC = () => {
           {/* Top Selling Items */}
           <div className="mt-8">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Selling Items</h3>
-            <div className="bg-white rounded-lg shadow overflow-hidden">
+            <div className="bg-white rounded-lg shadow overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>

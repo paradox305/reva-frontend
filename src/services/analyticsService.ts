@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = `${process.env.REACT_APP_SERVER_URL || 'https://reva-backend-production-016a.up.railway.app'}/analytics`;
+const API_URL = `${process.env.REACT_APP_SERVER_URL || 'http://localhost:3001'}/analytics`;
 
 export interface DailySales {
   date: string;

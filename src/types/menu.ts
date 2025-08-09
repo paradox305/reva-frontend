@@ -8,6 +8,7 @@ export interface MenuItem {
   inStock: boolean;
   isAvailable: boolean;
   department: 'BAR' | 'KITCHEN';
+  inventoryCount: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -20,4 +21,5 @@ export interface CreateMenuItemDto {
   image?: string;
   isAvailable: boolean;
   department: 'BAR' | 'KITCHEN';
+  inventoryCount?: number;
 } 

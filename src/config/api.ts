@@ -1,4 +1,5 @@
-export const API_BASE_URL = process.env.REACT_APP_SERVER_URL || 'https://reva-backend-production-016a.up.railway.app';
+// export const API_BASE_URL = process.env.REACT_APP_SERVER_URL || 'https://reva-backend-production-016a.up.railway.app';
+export const API_BASE_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:3001';
 
 export const API_ENDPOINTS = {
     MENU: `${API_BASE_URL}/menu`,
